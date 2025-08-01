@@ -480,23 +480,31 @@ export default function DynamoDash() {
                     </div>
                   )}
                   <div className="relative">
-                    <pre className={`whitespace-pre-wrap break-words text-sm bg-gray-50 p-4 rounded overflow-auto max-h-[60vh] font-mono ${
+                    <div className={`text-sm bg-gray-50 dark:bg-gray-800 p-4 rounded overflow-auto max-h-[60vh] font-mono ${
                       dialogContent.title.includes('JSON') ? 'language-json' : ''
                     }`}>
                       {dialogContent.title.includes('JSON') ? (
-                        <code dangerouslySetInnerHTML={{
-                          __html: dialogContent.content
-                            .replace(/&/g, '&amp;')
-                            .replace(/</g, '&lt;')
-                            .replace(/>/g, '&gt;')
-                            .replace(/"(\w+)":/g, '"<span class="text-purple-600 font-semibold">$1</span>":')
-                            .replace(/: "(.*?)"/g, ': "<span class="text-green-600">$1</span>"')
-                            .replace(/: (true|false|null|\d+)/g, ': <span class="text-blue-600">$1</span>')
-                        }} />
+                        <pre className="whitespace-pre-wrap break-words">
+                          <code dangerouslySetInnerHTML={{
+                            __html: JSON.stringify(JSON.parse(dialogContent.content), null, 2)
+                              .replace(/&/g, '&amp;')
+                              .replace(/</g, '&lt;')
+                              .replace(/>/g, '&gt;')
+                              .replace(/"(\w+)":/g, '"<span class="text-purple-500 dark:text-purple-400 font-semibold">$1</span>":')
+                              .replace(/: "(.*?)(?<!\\)"/g, (match, p1) => `: "<span class="text-green-600 dark:text-green-400">${p1.replace(/"/g, '&quot;')}</span>"`)
+                              .replace(/: (true|false)/g, ': <span class="text-blue-600 dark:text-blue-400">$1</span>')
+                              .replace(/: null/g, ': <span class="text-gray-500">null</span>')
+                              .replace(/: (\d+)/g, ': <span class="text-yellow-600 dark:text-yellow-400">$1</span>')
+                              .replace(/\n/g, '<br/>')
+                              .replace(/  /g, '&nbsp;&nbsp;')
+                          }} />
+                        </pre>
                       ) : (
-                        <code>{dialogContent.content}</code>
+                        <pre className="whitespace-pre-wrap break-words">
+                          <code>{dialogContent.content}</code>
+                        </pre>
                       )}
-                    </pre>
+                    </div>
                     {dialogContent.title.includes('JSON') && (
                       <button
                         onClick={() => {
