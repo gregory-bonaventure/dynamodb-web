@@ -12,7 +12,9 @@
     "@aws-sdk/client-dynamodb": "^3.857.0",
     "@aws-sdk/lib-dynamodb": "^3.857.0",
     "@aws-sdk/util-dynamodb": "^3.857.0",
+    "@types/pako": "^2.0.3",
     "next": "^14.0.0",
+    "pako": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^3.1.0"
