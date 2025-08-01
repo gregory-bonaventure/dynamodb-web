@@ -62,7 +62,7 @@ const awsRegions = [
   { code: 'sa-east-1', name: 'South America (São Paulo)' },
 ];
 
-export default function DynamoDBViewer() {
+export default function DynamoDash() {
   const [tables, setTables] = useState<string[]>([]);
   const [selectedTable, setSelectedTable] = useState<string>('');
   const [allItems, setAllItems] = useState<any[]>([]);
@@ -525,7 +525,7 @@ export default function DynamoDBViewer() {
           </div>
         </div>
       )}
-      <h1 className="text-2xl font-bold mb-6">DynamoDB Table Viewer</h1>
+      <h1 className="text-2xl font-bold mb-6">DynamoDash</h1>
       
       {/* AWS Configuration */}
       <div className="bg-white p-4 rounded-lg shadow-md mb-6">

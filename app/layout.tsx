@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "DynamoDB Table Viewer",
-  description: "A simple UI to view DynamoDB tables",
+  title: "DynamoDash",
+  description: "A modern web interface",
 };
 
 export default function RootLayout({
