@@ -2,8 +2,6 @@
 
 A modern, responsive web interface for interacting with Amazon DynamoDB.
 
-![DynamoDB UI Screenshot](https://via.placeholder.com/800x500.png?text=DynamoDB+UI+Screenshot)
-
 ## ✨ Features
 
 - 🔍 Browse and search DynamoDB tables
