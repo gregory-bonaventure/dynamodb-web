@@ -1,12 +1,12 @@
-# DynamoDB Web UI
+# DynamoDash
 
-A modern, responsive web interface for interacting with Amazon DynamoDB. This application allows you to browse tables, view items, and manage your DynamoDB resources with ease.
+A modern, responsive web interface for interacting with Amazon DynamoDB. This application allows you to browse tables, view items, and manage your DynamoDash resources with ease.
 
-![DynamoDB UI Screenshot](https://via.placeholder.com/800x500.png?text=DynamoDB+UI+Screenshot)
+![DynamoDash Screenshot](https://via.placeholder.com/800x500.png?text=DynamoDash+Screenshot)
 
 ## ✨ Features
 
-- 🔍 Browse and search DynamoDB tables
+- 🔍 Browse and search DynamoDash tables
 - 📝 View and explore table items with pagination
 - 🔄 Auto-refresh for real-time data
 - 🎨 Clean, responsive UI with dark/light mode support
