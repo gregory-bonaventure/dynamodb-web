@@ -540,10 +540,10 @@ export default function DynamoDash() {
             )}
             <div className="mb-8">
                 <div className="p-4">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white font-['Barriecito']">
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white font-['Limelight']">
                         DynamoDash
                     </h1>
-                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-xl font-['Cookie']">
+                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-xl font-medium">
                         Explore and manage your DynamoDB tables with ease
                     </p>
                 </div>
@@ -551,7 +551,7 @@ export default function DynamoDash() {
 
             {/* AWS Configuration */}
             <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                <h2 className="text-lg font-semibold mb-3">AWS Configuration</h2>
+                <h2 className="text-lg font-semibold mb-3 font-['Limelight']">AWS Configuration</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">AWS Region</label>
@@ -618,7 +618,7 @@ export default function DynamoDash() {
 
             {/* Table Selection and Search */}
             <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                <h2 className="text-lg font-semibold mb-3">Select a Table</h2>
+                <h2 className="text-lg font-semibold mb-3 font-['Limelight']">Select a Table</h2>
                 <select
                     value={selectedTable}
                     onChange={(e) => setSelectedTable(e.target.value)}
@@ -662,7 +662,7 @@ export default function DynamoDash() {
             {/* Table Data */}
             {selectedTable && (
                 <div className="bg-white p-4 rounded-lg shadow-md overflow-x-auto">
-                    <h2 className="text-lg font-semibold mb-3">Table: {selectedTable}</h2>
+                    <h2 className="text-lg font-semibold mb-3 font-['Limelight']">Table: {selectedTable}</h2>
                     {loading ? (
                         <p>Loading items...</p>
                     ) : filteredItems.length === 0 ? (
