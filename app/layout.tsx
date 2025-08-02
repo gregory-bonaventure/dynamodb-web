@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto_Flex } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const robotoFlex = Roboto_Flex({ subsets: ["latin"], display: 'swap' });
 
 export const metadata: Metadata = {
   title: "DynamoDash",
@@ -16,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@100..1000&family=Limelight&display=swap" rel="stylesheet" />
+      </head>
+      <body className={robotoFlex.className}>
         {children}
       </body>
     </html>
