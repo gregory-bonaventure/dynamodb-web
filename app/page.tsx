@@ -448,25 +448,16 @@ export default function DynamoDash() {
     };
 
     return (
-        <div className="container mx-auto p-6 relative">
+        <div className="flex flex-col gap-8">
             {/* Dialog for displaying full content */}
             {dialogOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
-                        <div className="p-4 border-b flex justify-between items-center">
-                            <h3 className="text-lg font-semibold">{dialogContent.title}</h3>
-                            <button
-                                onClick={() => setDialogOpen(false)}
-                                className="text-gray-500 hover:text-gray-700"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                          d="M6 18L18 6M6 6l12 12"/>
-                                </svg>
-                            </button>
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+                    <div className="dialog w-full max-w-2xl flex flex-col">
+                        <div className="flex justify-between items-center mb-2">
+                            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">{dialogContent.title}</h3>
+                            <button onClick={() => setDialogOpen(false)} className="btn px-2 py-1 text-base">✕</button>
                         </div>
-                        <div className="p-4 overflow-auto flex-grow">
+                        <div className="overflow-auto flex-grow">
                             {isDecompressing ? (
                                 <div className="flex items-center justify-center h-full">
                                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -475,154 +466,66 @@ export default function DynamoDash() {
                             ) : (
                                 <>
                                     {decompressionError && (
-                                        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+                                        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded">
                                             <p className="font-bold">Decompression Warning</p>
                                             <p>{decompressionError}</p>
                                             <p className="mt-2 text-sm">Showing compressed data instead.</p>
                                         </div>
                                     )}
                                     <div className="relative">
-                                        <div
-                                            className={`text-sm bg-gray-50 dark:bg-gray-800 p-4 rounded overflow-auto max-h-[60vh] font-mono ${
-                                                dialogContent.title.includes('JSON') ? 'language-json' : ''
-                                            }`}>
-                                            {dialogContent.title.includes('JSON') ? (
-                                                <pre className="whitespace-pre-wrap break-words">
-                          <code dangerouslySetInnerHTML={{
-                              __html: JSON.stringify(JSON.parse(dialogContent.content), null, 2)
-                                  .replace(/&/g, '&amp;')
-                                  .replace(/</g, '&lt;')
-                                  .replace(/>/g, '&gt;')
-                                  .replace(/"(\w+)":/g, '"<span class="text-purple-500 dark:text-purple-400 font-semibold">$1</span>":')
-                                  .replace(/: "(.*?)(?<!\\)"/g, (match, p1) => `: "<span class="text-green-600 dark:text-green-400">${p1.replace(/"/g, '&quot;')}</span>"`)
-                                  .replace(/: (true|false)/g, ': <span class="text-blue-600 dark:text-blue-400">$1</span>')
-                                  .replace(/: null/g, ': <span class="text-gray-500">null</span>')
-                                  .replace(/: (\d+)/g, ': <span class="text-yellow-600 dark:text-yellow-400">$1</span>')
-                                  .replace(/\n/g, '<br/>')
-                                  .replace(/  /g, '&nbsp;&nbsp;')
-                          }}/>
-                        </pre>
-                                            ) : (
-                                                <pre className="whitespace-pre-wrap break-words">
-                          <code>{dialogContent.content}</code>
-                        </pre>
-                                            )}
-                                        </div>
+                                        <pre className="whitespace-pre-wrap break-words bg-gray-50 dark:bg-gray-900 p-4 rounded font-mono max-h-[60vh] text-sm">
+                                            <code>{dialogContent.content}</code>
+                                        </pre>
                                         {dialogContent.title.includes('JSON') && (
-                                            <button
-                                                onClick={() => {
-                                                    navigator.clipboard.writeText(dialogContent.content);
-                                                }}
-                                                className="absolute top-2 right-2 p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded"
-                                                title="Copy to clipboard"
-                                            >
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none"
-                                                     viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                                          d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
-                                                </svg>
-                                            </button>
+                                            <button onClick={() => navigator.clipboard.writeText(dialogContent.content)} className="absolute top-2 right-2 btn px-2 py-1 text-xs">Copy</button>
                                         )}
                                     </div>
                                 </>
                             )}
                         </div>
-                        <div className="p-4 border-t flex justify-end">
-                            <button
-                                onClick={() => setDialogOpen(false)}
-                                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                            >
-                                Close
-                            </button>
+                        <div className="flex justify-end mt-4">
+                            <button onClick={() => setDialogOpen(false)} className="btn">Close</button>
                         </div>
                     </div>
                 </div>
             )}
-            <div className="mb-8">
-                <div className="p-4">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white font-['Limelight']">
-                        DynamoDash
-                    </h1>
-                    <p className="text-gray-600 dark:text-gray-300 mt-2 text-xl font-medium">
-                        Explore and manage your DynamoDB tables with ease
-                    </p>
-                </div>
+            <div className="mb-8 text-center">
+                <h1 className="text-4xl md:text-5xl font-extrabold font-['Limelight'] text-accent drop-shadow-sm">DynamoDash</h1>
+                <p className="text-gray-700 dark:text-gray-300 mt-2 text-xl font-medium">Explore and manage your DynamoDB tables with ease</p>
             </div>
-
             {/* AWS Configuration */}
-            <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                <h2 className="text-lg font-semibold mb-3 font-['Limelight']">AWS Configuration</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="card">
+                <h2 className="text-lg font-bold mb-3 font-['Limelight'] text-accent">AWS Configuration</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">AWS Region</label>
-                        <select
-                            value={config.region}
-                            onChange={(e) => setConfig({...config, region: e.target.value})}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            suppressHydrationWarning={true}
-                        >
+                        <label className="block text-sm font-medium mb-1">AWS Region</label>
+                        <select value={config.region} onChange={(e) => setConfig({...config, region: e.target.value})} className="input w-full" suppressHydrationWarning={true}>
                             {awsRegions.map((region) => (
-                                <option key={region.code} value={region.code}>
-                                    {region.name} ({region.code})
-                                </option>
+                                <option key={region.code} value={region.code}>{region.name} ({region.code})</option>
                             ))}
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Access Key ID</label>
-                        <input
-                            type="password"
-                            value={config.credentials.accessKeyId}
-                            onChange={(e) => setConfig({
-                                ...config,
-                                credentials: {...config.credentials, accessKeyId: e.target.value}
-                            })}
-                            className="w-full p-2 border rounded"
-                            placeholder="Access Key ID"
-                            suppressHydrationWarning={true}
-                        />
+                        <label className="block text-sm font-medium mb-1">Access Key ID</label>
+                        <input type="password" value={config.credentials.accessKeyId} onChange={(e) => setConfig({...config, credentials: {...config.credentials, accessKeyId: e.target.value}})} className="input w-full" placeholder="Access Key ID" suppressHydrationWarning={true} />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Secret Access Key</label>
-                        <input
-                            type="password"
-                            value={config.credentials.secretAccessKey}
-                            onChange={(e) => setConfig({
-                                ...config,
-                                credentials: {...config.credentials, secretAccessKey: e.target.value}
-                            })}
-                            className="w-full p-2 border rounded"
-                            placeholder="Secret Access Key"
-                            suppressHydrationWarning={true}
-                        />
+                        <label className="block text-sm font-medium mb-1">Secret Access Key</label>
+                        <input type="password" value={config.credentials.secretAccessKey} onChange={(e) => setConfig({...config, credentials: {...config.credentials, secretAccessKey: e.target.value}})} className="input w-full" placeholder="Secret Access Key" suppressHydrationWarning={true} />
                     </div>
-                    <div className="flex space-x-2">
-                        <button
-                            onClick={fetchTables}
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                            disabled={loading}
-                        >
-                            {loading ? 'Connexion...' : 'Se connecter'}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={clearCache}
-                            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
-                            title="Effacer les identifiants enregistrés"
-                        >
-                            Effacer le cache
-                        </button>
+                    <div className="flex space-x-2 items-end">
+                        <button onClick={clearCache} className="btn">Reset</button>
+                        <button onClick={fetchTables} className="btn">Reload Tables</button>
                     </div>
                 </div>
             </div>
-
             {/* Table Selection and Search */}
-            <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                <h2 className="text-lg font-semibold mb-3 font-['Limelight']">Select a Table</h2>
+            <div className="card">
+                <h2 className="text-lg font-bold mb-3 font-['Limelight'] text-accent">Select a Table</h2>
                 <select
                     value={selectedTable}
                     onChange={(e) => setSelectedTable(e.target.value)}
-                    className="w-full p-2 border rounded mb-4"
+                    className="input w-full"
                     disabled={loading || tables.length === 0}
                     suppressHydrationWarning={true}
                 >
@@ -637,7 +540,7 @@ export default function DynamoDash() {
                 {/* Global Search */}
                 {selectedTable && (
                     <div className="mb-2">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium mb-1">
                             Global Search
                         </label>
                         <input
@@ -645,7 +548,7 @@ export default function DynamoDash() {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             placeholder="Search across all columns..."
-                            className="w-full p-2 border rounded"
+                            className="input w-full"
                             suppressHydrationWarning={true}
                         />
                     </div>
@@ -661,8 +564,8 @@ export default function DynamoDash() {
 
             {/* Table Data */}
             {selectedTable && (
-                <div className="bg-white p-4 rounded-lg shadow-md overflow-x-auto">
-                    <h2 className="text-lg font-semibold mb-3 font-['Limelight']">Table: {selectedTable}</h2>
+                <div className="card overflow-x-auto">
+                    <h2 className="text-lg font-bold mb-3 font-['Limelight'] text-accent">Table: {selectedTable}</h2>
                     {loading ? (
                         <p>Loading items...</p>
                     ) : filteredItems.length === 0 ? (
