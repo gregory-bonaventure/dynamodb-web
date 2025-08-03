@@ -1,9 +1,11 @@
 'use client';
 
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback, useMemo} from 'react';
 import {DynamoDBClient, ListTablesCommand} from '@aws-sdk/client-dynamodb';
 import {DynamoDBDocumentClient, ScanCommand} from '@aws-sdk/lib-dynamodb';
 import * as pako from 'pako';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 // Fonction pour charger la configuration depuis le localStorage
 const loadConfigFromStorage = () => {
@@ -454,7 +456,7 @@ export default function DynamoDash() {
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
                     <div className="dialog w-full max-w-2xl flex flex-col">
                         <div className="flex justify-between items-center mb-2">
-                            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">{dialogContent.title}</h3>
+                            <h3 className="text-xl font-bold text-gray-800">{dialogContent.title}</h3>
                             <button onClick={() => setDialogOpen(false)} className="btn px-2 py-1 text-base">✕</button>
                         </div>
                         <div className="overflow-auto flex-grow">
@@ -473,9 +475,11 @@ export default function DynamoDash() {
                                         </div>
                                     )}
                                     <div className="relative">
-                                        <pre className="whitespace-pre-wrap break-words bg-gray-50 dark:bg-gray-900 p-4 rounded font-mono max-h-[60vh] text-sm">
-                                            <code>{dialogContent.content}</code>
-                                        </pre>
+                                        <div className="bg-white p-4 rounded border max-h-[60vh] overflow-auto">
+                                            <pre className="whitespace-pre-wrap text-sm">
+                                                {dialogContent.content}
+                                            </pre>
+                                        </div>
                                         {dialogContent.title.includes('JSON') && (
                                             <button onClick={() => navigator.clipboard.writeText(dialogContent.content)} className="absolute top-2 right-2 btn px-2 py-1 text-xs">Copy</button>
                                         )}
@@ -489,9 +493,12 @@ export default function DynamoDash() {
                     </div>
                 </div>
             )}
-            <div className="mb-8 text-center">
-                <h1 className="text-4xl md:text-5xl font-extrabold font-['Limelight'] text-accent drop-shadow-sm">DynamoDash</h1>
-                <p className="text-gray-700 dark:text-gray-300 mt-2 text-xl font-medium">Explore and manage your DynamoDB tables with ease</p>
+            <div className="mb-6">
+                {/* Header content has been moved to layout */}
+                <div className="container mx-auto px-4 text-center">
+                    <h1 className="text-3xl font-extrabold font-['Limelight'] text-accent drop-shadow-sm">DynamoDash</h1>
+                    <p className="text-gray-700 text-lg font-medium mt-2">Explore and manage your DynamoDB tables with ease</p>
+                </div>
             </div>
             {/* AWS Configuration */}
             <div className="card">
