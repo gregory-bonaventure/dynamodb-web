@@ -1,11 +1,9 @@
 'use client';
 
-import {useState, useEffect, useCallback, useMemo} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {DynamoDBClient, ListTablesCommand} from '@aws-sdk/client-dynamodb';
 import {DynamoDBDocumentClient, ScanCommand} from '@aws-sdk/lib-dynamodb';
 import * as pako from 'pako';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 // Fonction pour charger la configuration depuis le localStorage
 const loadConfigFromStorage = () => {
